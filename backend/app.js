@@ -5,8 +5,8 @@ const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { cors } = require('cors');
 
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
