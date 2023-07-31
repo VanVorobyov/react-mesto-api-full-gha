@@ -75,7 +75,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.vanvorobyov.nomoreparties.co/',
+  baseUrl: 'https://api.vanvorobyov.nomoreparties.co',
   // headers: {
   //   authorization: 'e2a854ae-97cb-44db-b5bb-1f03cec72045',
   //   'Content-Type': 'application/json',

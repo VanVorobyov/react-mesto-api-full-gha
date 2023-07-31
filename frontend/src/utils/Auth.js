@@ -43,7 +43,7 @@ class Auth {
 }
 
 const auth = new Auth({
-  baseUrl: 'https://api.vanvorobyov.nomoreparties.co/',
+  baseUrl: 'https://api.vanvorobyov.nomoreparties.co',
 });
 
 export default auth;
