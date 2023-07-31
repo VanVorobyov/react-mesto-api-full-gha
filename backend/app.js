@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { cors } = require('cors');
 
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
@@ -26,7 +27,7 @@ const limiter = rateLimit({
 });
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
