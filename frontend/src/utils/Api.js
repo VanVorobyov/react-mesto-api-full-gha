@@ -73,7 +73,7 @@ class Api {
 
   putLike(card) {
     const token = localStorage.getItem('jwt');
-    return this._request(`${this._baseUrl}/cards/likes/${card}`, {
+    return this._request(`${this._baseUrl}/cards/${card}/likes`, {
       method: 'PUT',
       headers: {
         authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ class Api {
 
   removeLike(card) {
     const token = localStorage.getItem('jwt');
-    return this._request(`${this._baseUrl}/cards/likes/${card}`, {
+    return this._request(`${this._baseUrl}/cards/${card}/likes`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`,
