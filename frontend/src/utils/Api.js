@@ -107,8 +107,8 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'http://localhost:3001',
-  // baseUrl: 'https://api.vanvorobyov.nomoreparties.co',
+  // baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://api.vanvorobyov.nomoreparties.co',
 
 });
 
