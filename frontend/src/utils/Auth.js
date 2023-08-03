@@ -44,10 +44,7 @@ class Auth {
 
 const auth = new Auth({
   baseUrl: 'http://localhost:3001',
+  // baseUrl: 'https://api.vanvorobyov.nomoreparties.co',
 });
 
 export default auth;
-
-
-//http://localhost:3001
-//https://api.vanvorobyov.nomoreparties.co

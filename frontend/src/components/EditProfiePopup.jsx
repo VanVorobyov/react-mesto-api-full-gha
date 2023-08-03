@@ -66,7 +66,7 @@ function EditProfilePopup(props) {
           type="text"
           name="about"
           minLength="2"
-          maxLength="200"
+          maxLength="30"
           placeholder="О себе"
           autoComplete="off"
           required
