@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.20.167
+IP 158.160.20.167
 
 Frontend https://vanvorobyov.nomoreparties.co
 
