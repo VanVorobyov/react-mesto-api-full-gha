@@ -37,14 +37,78 @@ function App() {
 
   const navigate = useNavigate();
 
+  const handleRegisterUser = (email, password) => {
+    auth
+      .register(email, password)
+      .then((data) => {
+        setIsSuccess(true);
+        setUserEmail(data.email);
+        navigate('/signin');
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        console.log(err);
+      })
+      .finally(() => setInfoTooltipPopupOpen(true));
+  };
+
+  const handleLoginUser = (email, password) => {
+    auth
+      .login(email, password)
+      .then((data) => {
+        localStorage.setItem('jwt', data.token);
+        setUserEmail(email);
+        setIsLoggedIn(true);
+        navigate('/');
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        setInfoTooltipPopupOpen(true);
+        console.log(err);
+      });
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    setUserEmail('');
+    navigate('/signin');
+  };
+
+  const checkToken = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          setUserEmail(res.email);
+          setIsLoggedIn(true);
+          navigate('/', { replace: true });
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoggedIn(false);
+        });
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
   useEffect(() => {
+    checkToken();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userInfo, initialCards]) => {
         setCurrentUser(userInfo);
         setCards(initialCards);
       })
       .catch((err) => console.log(err));
-  }, []);
+    }
+  }, [isLoggedIn, setCards]);
+
 
   const handleEditProfileClick = () => setEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setAddPlacePopupOpen(true);
@@ -130,66 +194,6 @@ function App() {
     handleSubmit(makeRequest);
   };
 
-  const handleRegisterUser = (email, password) => {
-    auth
-      .register(email, password)
-      .then((data) => {
-        setIsSuccess(true);
-        setUserEmail(data.email);
-        navigate('/sign-in');
-      })
-      .catch((err) => {
-        setIsSuccess(false);
-        console.log(err);
-      })
-      .finally(() => setInfoTooltipPopupOpen(true));
-  };
-
-  const handleLoginUser = (email, password) => {
-    auth
-      .login(email, password)
-      .then((data) => {
-        localStorage.setItem('jwt', data.token);
-        setIsLoggedIn(true);
-        setUserEmail(email);
-        navigate('/');
-      })
-      .catch((err) => {
-        setIsSuccess(false);
-        setInfoTooltipPopupOpen(true);
-        console.log(err);
-      });
-  };
-
-  const handleLogOut = () => {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    navigate('/sign-in');
-  };
-
-  const checkToken = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          setIsLoggedIn(true);
-          setUserEmail(res.data.email);
-          navigate('/', { replace: true });
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsLoggedIn(false);
-        });
-    } else {
-      setIsLoggedIn(false);
-    }
-  };
-
-  useEffect(() => {
-    checkToken();
-  }, []);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__content">
@@ -216,7 +220,7 @@ function App() {
             }
           />
           <Route
-            path="/sign-up"
+            path="/signup"
             element={
               <Register
                 onRegister={handleRegisterUser}
@@ -225,7 +229,7 @@ function App() {
             }
           />
           <Route
-            path="/sign-in"
+            path="/signin"
             element={
               <Login
                 onLogin={handleLoginUser}

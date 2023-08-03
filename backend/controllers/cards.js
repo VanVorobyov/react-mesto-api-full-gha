@@ -5,6 +5,7 @@ const BadRequestError = require('../utils/errors/badRequestError');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
+    .populate(['likes', 'owner'])
     .then((cards) => res.status(200).send(cards))
     .catch(next);
 };
@@ -25,6 +26,7 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.deleteCard = (req, res, next) => {
   Card.findById(req.params.id)
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Запрашиваемая карточка места не найдена');
@@ -46,6 +48,7 @@ module.exports.likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) throw new NotFoundError('Передан несуществующий _id карточки.');
       res.status(200).send(card);
@@ -65,6 +68,7 @@ module.exports.deleteLike = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['likes', 'owner'])
     .then((card) => {
       if (!card) throw new NotFoundError('Передан несуществующий _id карточки.');
       res.status(200).send(card);

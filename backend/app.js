@@ -37,6 +37,12 @@ mongoose.connect(MONGODB);
 
 app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use('/', authRoutes);
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);

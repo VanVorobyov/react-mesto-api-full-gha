@@ -18,7 +18,7 @@ function Header({ email, onSignOut }) {
                 <p className="header__link">{email}</p>
                 <Link
                   className="header__link header__link_muted"
-                  to="/sign-in"
+                  to="/signin"
                   onClick={onSignOut}
                 >
                   Выйти
@@ -28,11 +28,11 @@ function Header({ email, onSignOut }) {
           />
 
           <Route
-            path="/sign-up"
+            path="/signup"
             element={
               <Link
                 className="header__link"
-                to="/sign-in"
+                to="/signin"
               >
                 Войти
               </Link>
@@ -40,11 +40,11 @@ function Header({ email, onSignOut }) {
           />
 
           <Route
-            path="/sign-in"
+            path="/signin"
             element={
               <Link
                 className="header__link"
-                to="/sign-up"
+                to="/signup"
               >
                 Регистрация
               </Link>

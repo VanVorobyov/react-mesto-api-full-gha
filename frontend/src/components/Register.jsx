@@ -55,7 +55,7 @@ const Register = (props) => {
           <p className="auth__text">
             Уже зарегистрированы?&#160;
             <Link
-              to="/sign-in"
+              to="/signin"
               className="auth__text"
             >
               Войти
