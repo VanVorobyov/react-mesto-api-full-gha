@@ -1,3 +1,8 @@
+require('dotenv').config();
+
+// eslint-disable-next-line no-console
+console.log(process.env.NODE_ENV); // production
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
